@@ -1,5 +1,5 @@
-project "Core"
-   kind "StaticLib"
+project "testbed"
+   kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"
    targetdir "bin/%{cfg.buildcfg}"
@@ -9,7 +9,15 @@ project "Core"
 
    includedirs
    {
-      "src"
+      "src",
+
+	  -- Include unisock
+	  "../unisock/src"
+   }
+
+   links
+   {
+      "unisock"
    }
 
    targetdir ("../bin/" .. OutputDir .. "/%{prj.name}")
@@ -17,7 +25,7 @@ project "Core"
 
    filter "system:windows"
        systemversion "latest"
-       defines { }
+       defines { "WINDOWS" }
 
    filter "configurations:Debug"
        defines { "DEBUG" }
